@@ -1,0 +1,63 @@
+﻿@model IndexViewModel
+
+<div style="margin-top: 20px">
+    <button style="display:inline-block" id="buttonPrevious" onclick="updateTable(@(Model.PageViewModel.PageNumber - 1))" class="btn btn-outline-dark">
+        Назад
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </button>
+
+    <h5 style="display:inline-block" >@Model.PageViewModel.PageNumber / @Model.PageViewModel.TotalPages</h5>
+
+    <button style="display:inline-block" id="buttonNext" onclick="updateTable(@(Model.PageViewModel.PageNumber + 1))" class="btn btn-outline-dark">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </button>
+
+    @if (!Model.PageViewModel.HasPreviousPage)
+    {
+        <script>
+            document.getElementById("buttonPrevious").disabled = true;
+        </script>
+    }
+    @if (!Model.PageViewModel.HasNextPage)
+    {
+        <script>
+            document.getElementById("buttonNext").disabled = true;
+        </script>
+    }
+</div>
+
+<div style="margin-top: 20px">
+    <table class="table_sort">
+        <thead>
+            <tr>
+                <th>Фото</th>
+                <th>ФИО</th>
+                <th>Название отдела</th>
+                <th>Телефон</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var b in Model.Employees)
+            {
+                <tr>
+                    @if (@b.Avatar != null)
+                    {
+                        <td><img src="data:image;base64,@System.Convert.ToBase64String(@b.Avatar)" height="100" width="100" /></td>
+                    }
+                    else
+                    {
+                        <td><p></p></td>
+                    }
+                    <td><p>@b.FullName</p></td>
+                    <td><p>@b.Department</p></td>
+                    <td><p>@b.PhoneNumber</p></td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@b.Id">Изменить</a> |
+                        <a asp-action="Delete" asp-route-id="@b.Id">Удалить</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/site.css">
+    <script src="~/js/site.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.pipui.ru/latest/dist/css/bundles/pipui.min.css" />
+    <link rel="stylesheet" href="https://cdn.pipui.ru/latest/dist/css/bundles/pipui-responsive.min.css" />
+    <script src="https://cdn.pipui.ru/latest/dist/js/bundles/pipui.min.js"></script>
+
+    <meta name="viewport" content="width=device-width" />
+    <title>Справочник сотрудников</title>
+</head>
+<body>
+    <div class="d3">
+        <form>
+            <input type="text" placeholder="Искать по ФИО здесь..." id="searchFullName">
+            <script>
+                $('#searchFullName').keyup(function() {
+                    updateTable(1)
+                });
+            </script>
+        </form>
+    </div>
+    <div class="d3">
+        <form>
+            <input type="text" placeholder="Искать по номеру телефона здесь..." id="searchPhoneNumber">
+            <script>
+                $('#searchPhoneNumber').keyup(function() {
+                    updateTable(1)
+                });
+            </script>
+        </form>
+    </div>
+
+    <a class="btn btn-outline-dark" asp-action="Create">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Добавить сотрудника
+        </a>
+
+    <div id="employeeTable">
+        @{
+            Html.RenderPartial("EmployeeTable", (IndexViewModel)Model);
+        }
+    </div>
+</body>
+</html>
